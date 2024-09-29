@@ -1,20 +1,6 @@
 <?php
 
-function exibeMensagemLancamento(int $ano)
-{
-    if ($ano > 2022) {
-        echo "Esse filme é um lançamento\n";
-    } elseif ($ano > 2020 && $ano <= 2022) {
-        echo "Esse filme ainda é novo\n";
-    } else {
-        echo "Esse filme não é um lançamento\n";
-    }
-}
-
-function incluidoNoPlano(bool $planoPrime, int $anoLancamento)
-{
-    return $planoPrime || $anoLancamento < 2020;
-}
+require __DIR__ . "/src/funcoes.php";
 
 echo "Bem-vindo(a) ao CineData!\n";
 
@@ -49,13 +35,7 @@ $genero = match ($nomeFilme) {
 
 echo "O gênero do filme é: $genero\n";
 
-$filme = [
-    "nome" => "Thor: Ragnarok",
-    "ano" => 2021,
-    "nota" => 7.8,
-    "genero" => "super-herói",
-];
-
+$filme = criaFilme("Thor: Ragnarok", 2021, 7.8, "super-herói");
 
 echo $filme["ano"];
 
@@ -70,3 +50,7 @@ $posicaoDoisPontos = strpos($filme['nome'], ':');
 var_dump($posicaoDoisPontos);
 
 var_dump(substr($filme['nome'], 0, $posicaoDoisPontos));
+
+$filmeComoStringJason = json_encode($filme);
+file_put_contents(__DIR__ . '/filme.json', $filmeComoStringJason);
+
